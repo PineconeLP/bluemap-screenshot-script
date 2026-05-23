@@ -34,10 +34,10 @@ DISCORD_WEBHOOK_URL=https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOO
   "renderWaitMs": 10000,
   "regions": [
     {
-      "name": "North Town",
+      "name": "Spawn",
       "views": [
-        "https://your-bluemap-host/#world:0:330:-2500:0:0:0:0:0:free",
-        "https://your-bluemap-host/#world:100:150:-2400:0:-0.75:0.75:0:0:free"
+        "https://your-bluemap-host/#overworld:0:100:0:0:0:0:0:0:free",
+        "https://your-bluemap-host/#overworld:50:100:50:0:-0.8:0.42:0:0:free"
       ]
     }
   ]
@@ -58,10 +58,10 @@ Run with default config:
 npm start
 ```
 
-Run with custom env file or config file:
+Run with custom config file:
 
 ```bash
-node --env-file=.env index.js my-config.json
+npm start -- my-config.json
 ```
 
 ## Contributing

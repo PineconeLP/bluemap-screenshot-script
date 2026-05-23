@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { chromium } from "playwright";
 import { readFileSync, unlinkSync } from "fs";
 import { tmpdir } from "os";
