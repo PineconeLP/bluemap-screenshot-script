@@ -37,7 +37,7 @@ DISCORD_WEBHOOK_URL=https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOO
 ```json
 {
   "renderWaitMs": 10000,
-  "towns": [
+  "regions": [
     {
       "name": "North Town",
       "views": [
@@ -52,8 +52,8 @@ DISCORD_WEBHOOK_URL=https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOO
 | Field | Description |
 |---|---|
 | `renderWaitMs` | Milliseconds to wait for map tiles to render before screenshotting. |
-| `towns[].name` | Display name used in the Discord message. |
-| `towns[].views` | Array of BlueMap URLs to screenshot for this town. |
+| `regions[].name` | Display name used in the Discord message. |
+| `regions[].views` | Array of BlueMap URLs to screenshot for this region. |
 
 ## Usage
 

@@ -23,16 +23,16 @@ const browser = await chromium.launch({
 const context = await browser.newContext({ viewport: VIEWPORT });
 const page = await context.newPage();
 
-for (const town of config.towns) {
-  console.log(`Processing: ${town.name}`);
+for (const region of config.regions) {
+  console.log(`Processing: ${region.name}`);
   const imagePaths = [];
 
-  for (let i = 0; i < town.views.length; i++) {
-    console.log(`View ${i + 1}/${town.views.length}: ${town.views[i]}`);
-    imagePaths.push(await takeScreenshot(page, town.views[i]));
+  for (let i = 0; i < region.views.length; i++) {
+    console.log(`View ${i + 1}/${region.views.length}: ${region.views[i]}`);
+    imagePaths.push(await takeScreenshot(page, region.views[i]));
   }
 
-  await postToDiscord(town, imagePaths);
+  await postToDiscord(region, imagePaths);
 
   for (const p of imagePaths) {
     unlinkSync(p);
@@ -43,7 +43,9 @@ await browser.close();
 
 async function takeScreenshot(page, url) {
   await page.goto(url, { waitUntil: "load", timeout: 60_000 });
-  await page.waitForFunction(() => window.bluemap?.takeScreenshot, { timeout: 30_000 });
+  await page.waitForFunction(() => window.bluemap?.takeScreenshot, {
+    timeout: 30_000,
+  });
 
   console.log(`Waiting ${config.renderWaitMs / 1000}s for tiles to render...`);
   await page.waitForTimeout(config.renderWaitMs);
@@ -59,7 +61,7 @@ async function takeScreenshot(page, url) {
   return tmpPath;
 }
 
-async function postToDiscord(town, imagePaths) {
+async function postToDiscord(region, imagePaths) {
   const timestamp = new Date().toLocaleDateString("en-US", {
     month: "long",
     day: "numeric",
@@ -70,7 +72,7 @@ async function postToDiscord(town, imagePaths) {
   form.append(
     "payload_json",
     JSON.stringify({
-      content: `**${town.name}** - ${timestamp}`,
+      content: `**${region.name}** - ${timestamp}`,
     }),
   );
 
@@ -78,7 +80,7 @@ async function postToDiscord(town, imagePaths) {
     form.append(
       `files[${i}]`,
       new Blob([readFileSync(imagePaths[i])], { type: "image/png" }),
-      `${town.name.toLowerCase().replace(/\s+/g, "-")}-${i + 1}.png`,
+      `${region.name.toLowerCase().replace(/\s+/g, "-")}-${i + 1}.png`,
     );
   }
 
