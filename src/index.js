@@ -1,5 +1,5 @@
 import { chromium } from "playwright";
-import { readFileSync, writeFileSync, unlinkSync } from "fs";
+import { readFileSync, unlinkSync } from "fs";
 import { tmpdir } from "os";
 import { join } from "path";
 
@@ -43,17 +43,18 @@ await browser.close();
 
 async function takeScreenshot(page, url) {
   await page.goto(url, { waitUntil: "load", timeout: 60_000 });
-  await page.waitForSelector("canvas", { timeout: 30_000 });
+  await page.waitForFunction(() => window.bluemap?.takeScreenshot, { timeout: 30_000 });
 
   console.log(`Waiting ${config.renderWaitMs / 1000}s for tiles to render...`);
   await page.waitForTimeout(config.renderWaitMs);
 
-  const base64 = await page.evaluate(
-    () => document.querySelector("canvas").toDataURL("image/png").split(",")[1],
-  );
+  const [download] = await Promise.all([
+    page.waitForEvent("download"),
+    page.evaluate(() => window.bluemap.takeScreenshot()),
+  ]);
 
   const tmpPath = join(tmpdir(), `bluemap-${Date.now()}.png`);
-  writeFileSync(tmpPath, Buffer.from(base64, "base64"));
+  await download.saveAs(tmpPath);
 
   return tmpPath;
 }
