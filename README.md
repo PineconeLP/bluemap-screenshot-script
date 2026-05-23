@@ -2,6 +2,8 @@
 
 Script to take Minecraft world screenshots through a [BlueMap](https://bluemap.bluecolored.de/) web server and post them to Discord.
 
+<img width="766" height="415" alt="Screenshot 2026-05-23 at 2 50 21 PM" src="https://github.com/user-attachments/assets/a1b85850-1ab5-47ad-8a8b-222d68428ef7" />
+
 ## Installation
 
 1. Pull this repo locally.
