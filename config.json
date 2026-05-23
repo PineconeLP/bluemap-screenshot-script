@@ -1,0 +1,11 @@
+{
+  "renderWaitMs": 10000,
+  "towns": [
+    {
+      "name": "North Town",
+      "views": [
+        "https://bluecolored.de/bluemap/#world:0:330:-2500:0:0:0:0:0:free"
+      ]
+    }
+  ]
+}
