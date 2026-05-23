@@ -1,13 +1,8 @@
-# BlueMap Screenshot Script
+# 📸 BlueMap Screenshot Script
 
-Script to take Minecraft world screenshots through a BlueMap web server.
+Script to take Minecraft world screenshots through a [BlueMap](https://bluemap.bluecolored.de/) web server and post them to Discord.
 
-## Features
-
-- Take screenshots of Minecraft world regions
-- Post screenshots to a Discord channel
-
-## Install
+## Installation
 
 1. Pull this repo locally.
 
